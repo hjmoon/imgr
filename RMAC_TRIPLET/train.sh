@@ -33,7 +33,7 @@ PRETRAINED_CHECKPOINT_DIR=../src/pretrained_ckpt
 TRAIN_DIR=./tfmodels/inception_v3_train_v2
 
 
-python train_tripletloss_gpu_preselect.py \
+python train_tripletloss_gpu.py \
   --logs_base_dir=${TRAIN_DIR} \
   --models_base_dir=${TRAIN_DIR} \
   --model_def=inception_v3 \
