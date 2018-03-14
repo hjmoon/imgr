@@ -1,0 +1,9 @@
+- toyset info
+- training( multilabel )
+	- default balance material
+	- default imbalance material
+	- default balance patt
+	- default imbalance patt
+	- rmac
+	- bidirectional
+	- leveraging weakly annotated data

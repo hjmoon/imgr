@@ -36,4 +36,22 @@ k 개 multi label vocabulary를 사용. image embedding은 softmax activation �
 text dataset의 non visual ( ex. 'xl', 'cm', 'size'등.. ) imbalance를 다루기 위해 가벼운 전처리 후 uniform sampling 수행. w word중 random으로 단어 선택( 1개?? ) 후 예측. ( predict w given x )
 
 ### Loss
-각 이미지에서 k vocabulary 중 한 개 라벨을 예측하려 함. cross-entropy loss를 사용. negative sum of log-probabilities( ??????? ) 네거티브 로스??
+각 이미지에서 k vocabulary 중 한 개 라벨을 예측하려 함. 아마 위에서 말한 random uniform sampling 인거 같음. cross-entropy loss를 사용. negative sum of log-probabilities
+
+<img src="https://latex.codecogs.com/svg.latex?\Large&space;L(\Theta,W,\mathcal{D})=-\frac{1}{N}\sum\limits_{n=1}^N \sum\limits_{k=1}^K y_n^k\log \frac{\exp(w_k^Tf(x_n,\Theta))}{\sum\limits_{I=1}^K\exp(w_i^Tf(x_n,\Theta))}"/>
+
+### Implementation details
+#### Negative sampling
+각 이미지 샘플에서 vocabulary 의 모든 classes 확률을 계산하면 비용이 너무 크기 때문에 negative sampling을 함. negative sampling하는 방법은 각 이미지 샘플에서 정답(positive) label(word)를 선택 후, 정답에 대응되는 negative label(word)를 sampling함. 이렇게 선택된 words 로 score와 softmax를 계산함.
+#### Learning
+-basenet : resnet50
+-dataset size : 약 1,300,000 장
+-pre-trained weights : image-net
+-last layer weights : random init
+-last layer weights training : 20epoch
+-solver : SGD
+-batch size : 20
+-initial lr : 0.1
+-num_epochs_per_decay : 10 (향상이 없다면)
+-learning_rate_decay_factor : 0.1
+-total epoch : 20 (향상이 없다면)
