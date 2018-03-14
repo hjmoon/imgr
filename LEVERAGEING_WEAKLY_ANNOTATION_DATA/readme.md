@@ -1,4 +1,4 @@
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 # [Leveraging Weakly Annotated Data for Fashion Image Retrieval and Label Prediction](https://arxiv.org/pdf/1709.09426.pdf)
 
 ## Abstract
