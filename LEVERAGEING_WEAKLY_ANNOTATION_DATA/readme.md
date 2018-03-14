@@ -39,6 +39,9 @@ text dataset의 non visual ( ex. 'xl', 'cm', 'size'등.. ) imbalance를 다루�
 각 이미지에서 k vocabulary 중 한 개 라벨을 예측하려 함. 아마 위에서 말한 random uniform sampling 인거 같음. cross-entropy loss를 사용. negative sum of log-probabilities
 
 <img src="https://latex.codecogs.com/svg.latex?\Large&space;L(\Theta,W,\mathcal{D})=-\frac{1}{N}\sum\limits_{n=1}^N \sum\limits_{k=1}^K y_n^k\log \frac{\exp(w_k^Tf(x_n,\Theta))}{\sum\limits_{I=1}^K\exp(w_i^Tf(x_n,\Theta))}"/>
+$
+L(\Theta,W,\mathcal{D})=-\frac{1}{N}\sum\limits_{n=1}^N \sum\limits_{k=1}^K y_n^k\log \frac{\exp(w_k^Tf(x_n,\Theta))}{\sum\limits_{I=1}^K\exp(w_i^Tf(x_n,\Theta))}
+$
 
 ### Implementation details
 #### Negative sampling
@@ -55,3 +58,6 @@ text dataset의 non visual ( ex. 'xl', 'cm', 'size'등.. ) imbalance를 다루�
 -num_epochs_per_decay : 10 (향상이 없다면)
 -learning_rate_decay_factor : 0.1
 -total epoch : 20 (향상이 없다면)
+#### Training dataset
+여기저기서 crawling했다. label을 title, category name, description등으로 고려해서 만듬. word token NLTK사용. stop word제거, frequent non-relevant words 제거( 웹사이트 이름, 'collection', 'buy', ...) and non alphabetic word. 최소한의 preprocessing을 적용. 그렇게 나온 218,536 words 중 frequent 30,000개를 선택.
+###Experiments and evaluation
