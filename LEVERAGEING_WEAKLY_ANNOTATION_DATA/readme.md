@@ -1,3 +1,4 @@
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 # [Leveraging Weakly Annotated Data for Fashion Image Retrieval and Label Prediction](https://arxiv.org/pdf/1709.09426.pdf)
 
 ## Abstract
@@ -39,9 +40,9 @@ text dataset의 non visual ( ex. 'xl', 'cm', 'size'등.. ) imbalance를 다루�
 각 이미지에서 k vocabulary 중 한 개 라벨을 예측하려 함. 아마 위에서 말한 random uniform sampling 인거 같음. cross-entropy loss를 사용. negative sum of log-probabilities
 
 <img src="https://latex.codecogs.com/svg.latex?\Large&space;L(\Theta,W,\mathcal{D})=-\frac{1}{N}\sum\limits_{n=1}^N \sum\limits_{k=1}^K y_n^k\log \frac{\exp(w_k^Tf(x_n,\Theta))}{\sum\limits_{I=1}^K\exp(w_i^Tf(x_n,\Theta))}"/>
-$
+$$
 L(\Theta,W,\mathcal{D})=-\frac{1}{N}\sum\limits_{n=1}^N \sum\limits_{k=1}^K y_n^k\log \frac{\exp(w_k^Tf(x_n,\Theta))}{\sum\limits_{I=1}^K\exp(w_i^Tf(x_n,\Theta))}
-$
+$$
 
 ### Implementation details
 #### Negative sampling
