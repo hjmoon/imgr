@@ -41,11 +41,15 @@ text dataset의 non visual ( ex. 'xl', 'cm', 'size'등.. ) imbalance를 다루�
 
 <img src="https://latex.codecogs.com/svg.latex?\Large&space;L(\Theta,W,\mathcal{D})=-\frac{1}{N}\sum\limits_{n=1}^N \sum\limits_{k=1}^K y_n^k\log \frac{\exp(w_k^Tf(x_n,\Theta))}{\sum\limits_{I=1}^K\exp(w_i^Tf(x_n,\Theta))}"/>
 
-\begin{equation}
-L(Iq,I+,I−)=max(0,m+q^{T}d^{−}−q^{T}d^{+})
-\end{equation}
+
+\begin{equation*}
+\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)
+\end{equation*}
+
+
 
 L(\Theta,W,\mathcal{D})=-\frac{1}{N}\sum\limits_{n=1}^N \sum\limits_{k=1}^K y_n^k\log \frac{\exp(w_k^Tf(x_n,\Theta))}{\sum\limits_{I=1}^K\exp(w_i^Tf(x_n,\Theta))}
+
 
 
 ### Implementation details
