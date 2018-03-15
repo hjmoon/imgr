@@ -33,29 +33,39 @@ k 개 multi label vocabulary를 사용. image embedding은 softmax activation �
 두 네트워크를 합침.
 좀 더 봐야됨..
 
+image embedding is given to a classification layer
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=\hat{y}=softmax(W^{T}&space;,&space;z)" target="_blank"><img src="https://latex.codecogs.com/png.latex?\hat{y}=softmax(W^{T}&space;,&space;z)" title="\hat{y}=softmax(W^{T} , z)" /></a>
+
+- z is **CNN** visual feature
+- <a href="https://www.codecogs.com/eqnedit.php?latex=W\in&space;\mathbb{R}^{I\times&space;K}" target="_blank"><img src="https://latex.codecogs.com/png.latex?W\in&space;\mathbb{R}^{I\times&space;K}" title="W\in \mathbb{R}^{I\times K}" /></a>
+-  <a href="https://www.codecogs.com/eqnedit.php?latex=K\in&space;[1,K]" target="_blank"><img src="https://latex.codecogs.com/png.latex?K\in&space;[1,K]" title="K\in [1,K]" /></a> ( k labeling )
+- <a href="https://www.codecogs.com/eqnedit.php?latex=w_{k}=W[:,k]" target="_blank"><img src="https://latex.codecogs.com/png.latex?w_{k}=W[:,k]" title="w_{k}=W[:,k]" /></a> (  **corresponds** to the embedding of the
+k-th word in the vocabular )
+
 ### Label imbalance management
 text dataset의 non visual ( ex. 'xl', 'cm', 'size'등.. ) imbalance를 다루기 위해 가벼운 전처리 후 uniform sampling 수행. w word중 random으로 단어 선택( 1개?? ) 후 예측. ( predict w given x )
 
 ### Loss
 각 이미지에서 k vocabulary 중 한 개 라벨을 예측하려 함. 아마 위에서 말한 random uniform sampling 인거 같음. cross-entropy loss를 사용. negative sum of log-probabilities
 
-<a href="https://www.codecogs.com/eqnedit.php?latex=L(\Theta,W,\mathcal{D})=-\frac{1}{N}\sum\limits_{n=1}^N&space;\sum\limits_{k=1}^K&space;y_n^k\log&space;\frac{\exp(w_k^Tf(x_n,\Theta))}{\sum\limits_{I=1}^K\exp(w_i^Tf(x_n,\Theta))}" target="_blank"><img src="https://latex.codecogs.com/png.latex?L(\Theta,W,\mathcal{D})=-\frac{1}{N}\sum\limits_{n=1}^N&space;\sum\limits_{k=1}^K&space;y_n^k\log&space;\frac{\exp(w_k^Tf(x_n,\Theta))}{\sum\limits_{I=1}^K\exp(w_i^Tf(x_n,\Theta))}" title="L(\Theta,W,\mathcal{D})=-\frac{1}{N}\sum\limits_{n=1}^N \sum\limits_{k=1}^K y_n^k\log \frac{\exp(w_k^Tf(x_n,\Theta))}{\sum\limits_{I=1}^K\exp(w_i^Tf(x_n,\Theta))}" /></a>
+<a href="https://www.codecogs.com/eqnedit.php?latex=L(\Theta,W,\mathcal{D})=-\frac{1}{N}\sum\limits_{n=1}^N&space;\sum\limits_{k=1}^K&space;y_n^k\log&space;\frac{\exp(w_k^Tf(x_n,\Theta))}{\sum\limits_{I=1}^K\exp(w_i^Tf(x_n,\Theta))}" target="_blank"><img src="https://latex.codecogs.com/png.latex?L(\Theta,W,\mathcal{D})=-\frac{1}{N}\sum\limits_{n=1}^N&space;\sum\limits_{k=1}^K&space;y_n^k\log&space;\frac{\exp(w_k^Tf(x_n,\Theta))}{\sum\limits_{I=1}^K\exp(w_i^Tf(x_n,\Theta))}" title="L(\Theta,W,\mathcal{D})=-\frac{1}{N}\sum\limits_{n=1}^N \sum\limits_{k=1}^K y_n^k\log \frac{\exp(w_k^Tf(x_n,\Theta))}{\sum\limits_{I=1}^K\exp(w_i^Tf(x_n,\Theta))}" /></a> ( k vocab, n dataset, 걍 softmax loss 에 응용인 듯 )
 
 ### Implementation details
 #### Negative sampling
 각 이미지 샘플에서 vocabulary 의 모든 classes 확률을 계산하면 비용이 너무 크기 때문에 negative sampling을 함. negative sampling하는 방법은 각 이미지 샘플에서 정답(positive) label(word)를 선택 후, 정답에 대응되는 negative label(word)를 sampling함. 이렇게 선택된 words 로 score와 softmax를 계산함.
 #### Learning
--basenet : resnet50
--dataset size : 약 1,300,000 장
--pre-trained weights : image-net
--last layer weights : random init
--last layer weights training : 20epoch
--solver : SGD
--batch size : 20
--initial lr : 0.1
--num_epochs_per_decay : 10 (향상이 없다면)
--learning_rate_decay_factor : 0.1
--total epoch : 20 (향상이 없다면)
+- basenet : resnet50
+- dataset size : 약 1,300,000 장
+- pre-trained weights : image-net
+- last layer weights : random init
+- last layer weights training : 20epoch
+- solver : SGD
+- batch size : 20
+- initial lr : 0.1
+- num_epochs_per_decay : 10 (향상이 없다면)
+- learning_rate_decay_factor : 0.1
+- total epoch : 20 (향상이 없다면)
 #### Training dataset
 여기저기서 crawling했다. label을 title, category name, description등으로 고려해서 만듬. word token NLTK사용. stop word제거, frequent non-relevant words 제거( 웹사이트 이름, 'collection', 'buy', ...) and non alphabetic word. 최소한의 preprocessing을 적용. 그렇게 나온 218,536 words 중 frequent 30,000개를 선택.
 ###Experiments and evaluation
