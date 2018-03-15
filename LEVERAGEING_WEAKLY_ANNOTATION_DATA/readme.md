@@ -30,7 +30,7 @@ CNN( convolutional neural network ) 덕분에 이미지 특징 찾는게 좋아�
 
 ### Model
 k 개 multi label vocabulary를 사용. image embedding은 softmax activation 사용.
-두 네트워크를 합침.
+두 네트워크를 합침. (dot product)
 좀 더 봐야됨..
 
 image embedding is given to a classification layer
