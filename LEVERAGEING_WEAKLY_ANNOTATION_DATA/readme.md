@@ -69,4 +69,4 @@ text dataset의 non visual ( ex. 'xl', 'cm', 'size'등.. ) imbalance를 다루�
 #### Training dataset
 여기저기서 crawling했다. label을 title, category name, description등으로 고려해서 만듬. word token NLTK사용. stop word제거, frequent non-relevant words 제거( 웹사이트 이름, 'collection', 'buy', ...) and non alphabetic word. 최소한의 preprocessing을 적용. 그렇게 나온 218,536 words 중 frequent 30,000개를 선택.
 
-###Experiments and evaluation
+### Experiments and evaluation
