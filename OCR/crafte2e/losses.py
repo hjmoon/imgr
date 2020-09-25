@@ -8,8 +8,8 @@ def mse_ohem(labels, preds):
         _labels = tf.reshape(_labels, [mask_shape[0]*mask_shape[1]])
         _preds = tf.reshape(_preds, [mask_shape[0]*mask_shape[1]])
         
-        _diff = (_labels - _preds)
-        _loss = tf.math.sqrt(_diff * _diff)
+        _loss = (_labels - _preds)**2
+        # _loss = tf.math.sqrt(_diff * _diff)
         
         _pos_mask = tf.greater(_labels, 0)
         _pos_ind = tf.squeeze(tf.where(_pos_mask), axis=1)
